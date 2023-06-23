@@ -1,0 +1,26 @@
+# change to appropriate file if appropriate (~/.zsh_aliases; ~/.bashrc; etc)
+# nb: do not enclose path in quotes e.g., rcfile="~/.zshrc"
+rcfile=~/.zshrc
+
+while [[ -z $trigger ]]; do
+  read -p "text to trigger/call alias: " trigger
+done
+
+while [[ -z $cmd ]]; do
+  read -p "command to execute: " cmd
+done
+
+toadd="alias "${trigger}\=\'"$cmd"\'
+
+# uncomment add alias to end of ~/.zshrc
+# "$toadd" >> $rcfile
+
+# uncomment to add alias to beginning of ~/.zshrc
+echo "$toadd" | cat - $rcfile > temp && mv temp $rcfile
+
+# uncomment to add alias to specific line number `#` of ~/.zshrc -- 
+# CHANGE # TO DESIRED LINE NUMBER
+# sed -i '#s/^/'"$toadd"'\n/' $rcfile
+
+# print confirmation to terminal; merely informative, delete if desired
+echo $toadd added to $rcfile
